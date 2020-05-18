@@ -2,6 +2,9 @@ POW为共识机制，区块奖励平稳变化，挖矿难度目标为60秒
 ## 白皮书：
 https://zh.masteringmonero.com/Mastering-Monero-Chinese.pdf
 
+## git
+https://github.com/monero-project
+
 ## 浏览器
 https://xmr.tokenview.com
 
@@ -11,6 +14,14 @@ https://monerofaucet.info
 ## 网络类型
 主网、测试网（Testnet）和Stagenet
 如果你想使用真实的门罗区块链，请选择主网（默认选项）。测试网和Stagenet是两个独立的网络，供开发者开发和测试新代码。这两个网络中的门罗币没有任何实质价值，也无法转移至主网上。
+
+##开发资料
+《精通门罗币》
+https://github.com/YinXinCryp/monero_book
+wallet-rpc文档
+https://web.getmonero.org/resources/developer-guides/wallet-rpc.html
+daemon-rpc文档
+https://web.getmonero.org/resources/developer-guides/daemon-rpc.html
 
 ## 隐私保护技术
 环形机密交易（RingCT）隐藏交易金额
@@ -39,5 +50,7 @@ https://monerofaucet.info
 
 ## 交易所对接方案
 方案一：观察钱包+子地址
+子地址生成
 
 方案二：paymentid+集成地址
+参考：https://www.xmr-zh.com/accepting.html

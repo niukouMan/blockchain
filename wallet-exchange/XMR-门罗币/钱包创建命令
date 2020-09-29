@@ -1,0 +1,33 @@
+启动数据同步节点
+https://github.com/youngqqcn/QBlockChainNotes/blob/master/Monero/1_XMR%E5%85%A8%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA.md
+
+节点地址列表
+https://community.xmr.to/nodes.html
+
+创建钱包 
+./monero-wallet-cli --generate-new-wallet=/home/dev/software/monero/wallet_files/wallet05-main --daemon-address  node.imonero.org:18081 --daemon-login test:123 --trusted-daemon
+
+创建观察者钱包
+./monero-wallet-cli --daemon-address node.imonero.org:18081 --trusted-daemon --generate-from-view-key=/home/dev/software/monero/wallet_files/watch_only_wallet   --subaddress-lookahead  1:1000000
+
+启动观察者钱包
+DNS_PUBLIC=tcp://8.8.8.8 ./monero-wallet-rpc --daemon-address node.imonero.org:18081 --trusted-daemon --wallet-file=/home/dev/software/monero/wallet_files/watch_only_wallet --confirm-external-bind --rpc-bind-ip 0.0.0.0 --rpc-bind-port 38089  --password 123 --detach
+或
+DNS_PUBLIC=tcp://8.8.8.8 ./monero-wallet-rpc --rpc-bind-ip 0.0.0.0 --rpc-bind-port 38089 --confirm-external-bind --rpc-login test:123456 --daemon-address node.imonero.org:18081 --trusted-daemon --password 123 --wallet-file /home/dev/software/monero/wallet_files/watch_only_wallet > xmrmainnet.log 2>&1  &
+
+测试是否启动成功
+curl -X POST https://127.0.0.1:38089/json_rpc -d '{"jsonrpc":"2.0","id":"0","method":"incoming_transfers","params":{"transfer_type":"all"}}' -H 'Content-Type: application/json' --insecure
+
+离线冷钱包创建
+./monero-wallet-cli --daemon-address node.imonero.org:18081 --trusted-daemon --offline  --restore-deterministic-wallet   --subaddress-lookahead  1:1000000   --generate-new-wallet=/home/dev/software/monero/wallet_files/cold_wallet 
+
+启动离线冷钱包
+monero-wallet-rpc --daemon-address node.imonero.org:18081  --wallet-file=/home/dev/software/monero/wallet_files/cold_wallet --confirm-external-bind --rpc-bind-ip 0.0.0.0 --rpc-bind-port 48089 --password 123456 --disable-rpc-login --detach --offline
+或
+DNS_PUBLIC=tcp://8.8.8.8 ./monero-wallet-rpc --rpc-bind-ip 0.0.0.0 --rpc-bind-port 48089 --confirm-external-bind --rpc-login test:123456 --daemon-address node.imonero.org:18081 --password 123 --wallet-file /home/dev/software/monero/wallet_files/cold_wallet > xmrcold_mainnet.log 2>&1  &
+
+问题
+ - required trusted-daemon 错误
+在把冷钱包的key-images导出的key-images导入热钱包时报错，“ - required trusted-daemon”
+热钱包启动方式未指定daemon节点为 --trusted-daemon 需要在热钱包rpc启动时加上 --trusted-daemon设置为可信节点。
+

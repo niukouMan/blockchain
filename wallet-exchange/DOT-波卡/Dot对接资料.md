@@ -198,5 +198,6 @@ https://polkadot.js.org/api/start/api.tx.html
 
 ##相关博文
 https://www.zhihu.com/people/lester123
+http://www.bfttiao.com/keji/bftt2940362.html
 
 
